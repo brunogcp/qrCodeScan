@@ -13,7 +13,9 @@ import {
 export class HomePage {
   encodeData: any;
   scannedData: {};
+  scannedDateP:{};
   parseData: any;
+  parseDataP:any;
   barcodeScannerOptions: BarcodeScannerOptions;
 
   constructor(private barcodeScanner: BarcodeScanner) {
@@ -24,7 +26,13 @@ export class HomePage {
       showFlipCameraButton: true,
     };
   }
+  voltar(){
+    console.log(this.parseData);
+    this.parseData = null;
+    this.parseDataP = null;
+    console.log(this.parseData);
 
+  }
   scanCode() {
     this.barcodeScanner
       .scan()
@@ -37,7 +45,18 @@ export class HomePage {
         console.log("Error", err);
       });
   }
-
+  scannedCodeP(){
+    this.barcodeScanner
+      .scan()
+      .then((barcodeData) => {
+        //alert("Barcode data " + JSON.stringify(barcodeData));
+        this.scannedDateP = barcodeData;
+        this.parseDataP = JSON.parse(barcodeData["text"]);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  }
   encodedText() {
     this.barcodeScanner
       .encode(this.barcodeScanner.Encode.TEXT_TYPE, this.encodeData)

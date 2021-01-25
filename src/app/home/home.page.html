@@ -1,24 +1,50 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title> Ionic QR/ Barcode Scanner </ion-title>
+    <ion-title> Sollar QRcode Scanner </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <h1>Click Button To Scan</h1>
+  <ion-card *ngIf="!parseData">
+    <ion-card-title class="ion-padding">
+      Clique no botão para escanear:
+    </ion-card-title>
+    <ion-card-content>
+         <ion-button color="primary" (click)="scanCode()"> check Paciente </ion-button>
+    <ion-button color="primary" (click)="scannedCodeP()"> check Prescrição</ion-button> 
+    </ion-card-content>
+  </ion-card>
+  
 
-  <ion-button color="primary" (click)="scanCode()"> Scan Code </ion-button>
-
-  <div *ngIf="scannedData">
-    <p>Scanned Code Text : <b>{{ scannedData["text"] }}</b></p>
-    <p>Scanned Code Format : <b>{{ scannedData["format"] }}</b></p>
-    <p>Scanned Code Id : <b>{{ parseData['id'] }}</b></p>
-    <p>Scanned Code Nome : <b>{{ parseData['name'] }}</b></p>
-    <p>Scanned Code Tipo : <b>{{ parseData['tipo'] }}</b></p>
-    <p>Scanned Code Via : <b>{{ parseData['via'] }}</b></p>
-    <p>Scanned Code Peso : <b>{{ parseData['peso'] }}</b></p>
-    <p>Scanned Code Quantidade : <b>{{ parseData['qtd'] }} unidades</b></p>
+  <div *ngIf="parseData">
+    <ion-card>
+      <ion-card-title class="ion-padding">
+        Paciente:
+      </ion-card-title>
+      <ion-card-content>
+        <!-- <p>Scanned Code Text : <b>{{ scannedData["text"] }}</b></p> -->
+    <!-- <p>Scanned Code Format : <b>{{ scannedData["format"] }}</b></p> -->
+    <p> Id do Paciente : <b>{{ parseData['_id'] }}</b></p>
+    <p> Nome : <b>{{ parseData['name'] }}</b></p>
+    <p> Nome Social : <b>{{ parseData['social_name'] }}</b></p>
+    <p> RG : <b>{{ parseData['national_id'] }}</b></p>
+    <p> Email : <b>{{ parseData['email'] }}</b></p>
+    <p> Tipo Sanguíneo : <b>{{ parseData['blood_type'] }}</b></p>
+    <p> Cartão do Sus : <b>{{ parseData['sus_card'] }}</b></p>
+    <p>  CPF : <b>{{ parseData['fiscal_number'] }}</b></p>
+    <!-- <p>Scanned Code Peso : <b>{{ parseData['peso'] }}</b></p>
+    <p>Scanned Code Quantidade : <b>{{ parseData['qtd'] }} unidades</b></p> -->
+      </ion-card-content>
+    </ion-card> 
+    <ion-button class="ion-padding" color="primary" (click)="voltar()">Voltar</ion-button>
   </div>
+  <div *ngIf="parseDataP">
+    <ion-label>
+      Prescrição
+    </ion-label>
+
+  </div>
+ 
   <!-- 
   <h1>Enter Value to Create QR code</h1>
   <ion-input placeholder="Enter Input"></ion-input>
